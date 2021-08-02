@@ -69,7 +69,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{{route('videos.index')}}">
                             <i class="fas fa-play-circle">
                                 قناتي
                             </i>
