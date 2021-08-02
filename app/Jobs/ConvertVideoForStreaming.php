@@ -88,6 +88,7 @@ class ConvertVideoForStreaming implements ShouldQueue
 
   public function handle()
   {
+    $longitudinal = false;
     $ffprobe = FFProbe::create();
     $video1 = $ffprobe->streams(public_path('/storage//' . $this->video->video_path))->videos()->first();
     $width = $video1->get('width');
@@ -104,8 +105,6 @@ class ConvertVideoForStreaming implements ShouldQueue
 
     $quality = 0;
 
-
-    //المقطع عرضي
     if ($width > $height) {
 
       if (($width >= 1920) && ($height >= 1080)) {
@@ -124,11 +123,8 @@ class ConvertVideoForStreaming implements ShouldQueue
         $quality = 240;
         $this->convertVideo(4);
       }
-    } else if ($height > $width) { //المقطع طولي  
-
-      $this->video->update([
-        'Longitudinal' => true
-      ]);
+    } else if ($height > $width) {
+      $longitudinal = true;
 
       if (($height >= 1920) && ($width >= 1080)) {
         $quality = 1080;
@@ -162,6 +158,7 @@ class ConvertVideoForStreaming implements ShouldQueue
     $converted_video->save();
 
     $this->video->update([
+      'longitudinal' => $longitudinal,
       'processed' => true,
       'hours' => $hours,
       'minutes' => $minutes,

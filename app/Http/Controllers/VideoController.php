@@ -58,11 +58,19 @@ class VideoController extends Controller
         ]);
 
         ConvertVideoForStreaming::dispatch($video);
-        
+
         return redirect()->back()->with(
             'success',
             'سيكون المقطع متوفرا بعد الإنتهاء من معالجته'
         );
+    }
+
+    public function search(Request $request)
+    {
+        $videos = Video::where('title', 'LIKE', "%{$request->term}%")->paginate(12);
+        $title = "عرض نتائج البحث عن :  {$request->term}";
+
+        return view('videos.my-videos', compact('videos', 'title'));
     }
 
     public function show($id)
@@ -70,21 +78,37 @@ class VideoController extends Controller
         //
     }
 
-    public function edit($id)
+    public function edit(Video $video)
     {
-        //
+        return view('videos.edit-video', compact('video'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Video $video)
     {
-        //
+        $data = request()->validate([
+            'title' => 'required',
+            'image' => 'sometimes'
+        ]);
+
+        if ($request->hasFile('image')) {
+            Storage::delete($video->image_path);
+
+            $randomPath = Str::random(16);
+            $imagePath = $randomPath . '.' . $request->image->getClientOriginalExtension();
+            $image = Image::make($request->image)->resize(320, 180);
+            Storage::put($imagePath, $image->stream());
+
+            $data['image_path'] = $imagePath;
+        }
+
+        $video->update($data);
+        return back()->with('success', 'تم تعديل الفيديو بنجاح');
     }
 
     public function destroy(Video $video)
     {
         $converedVideos = $video->convertedVideos;
-        foreach ($converedVideos as $converedVideo)
-        {
+        foreach ($converedVideos as $converedVideo) {
             Storage::delete([
                 $converedVideo->mp4_Format_240,
                 $converedVideo->mp4_Format_360,
