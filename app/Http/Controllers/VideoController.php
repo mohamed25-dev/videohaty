@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ConvertVideoForStreaming;
 use App\Models\Video;
-
+use App\Models\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -14,7 +14,7 @@ class VideoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except('show');
     }
 
     public function index(Request $request)
@@ -45,7 +45,7 @@ class VideoController extends Controller
         $imagePath = $randomPath . '.' . $request->image->getClientOriginalExtension();
 
         $image = Image::make($request->image)->resize(320, 180);
-        $path = Storage::put($imagePath, $image->stream());
+        Storage::put($imagePath, $image->stream());
 
         $request->video->storeAs('/', $videoPath, 'public');
 
@@ -55,6 +55,12 @@ class VideoController extends Controller
             'image_path' => $imagePath,
             'title' => $request->title,
             'user_id' => auth()->id()
+        ]);
+
+        View::create([
+            'video_id' => $video->id,
+            'user_id' => auth()->id(),
+            'views_number' => 0
         ]);
 
         ConvertVideoForStreaming::dispatch($video);
@@ -73,9 +79,18 @@ class VideoController extends Controller
         return view('videos.my-videos', compact('videos', 'title'));
     }
 
-    public function show($id)
+    public function show(Video $video)
     {
-        //
+        $countLikes = $video->likes()->where('like', 1)->count();
+        $countDislikes = $video->likes()->where('like', 0)->count();
+        // $views = ++$video->view;
+    
+        $userLike = 0;
+        if (auth()->user()) {
+            $userLike = auth()->user()->likes()->where('video_id', $video->id)->first();
+        }
+
+        return view('videos.show-video', compact('video', 'countLikes', 'countDislikes', 'userLike'));
     }
 
     public function edit(Video $video)

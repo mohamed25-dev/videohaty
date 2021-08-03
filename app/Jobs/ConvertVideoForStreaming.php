@@ -158,7 +158,7 @@ class ConvertVideoForStreaming implements ShouldQueue
     $converted_video->save();
 
     $this->video->update([
-      'longitudinal' => $longitudinal,
+      'Longitudinal' => $longitudinal,
       'processed' => true,
       'hours' => $hours,
       'minutes' => $minutes,

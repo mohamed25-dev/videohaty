@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,4 +24,7 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
 })->name('dashboard');
 
 Route::get('/videos/search', [VideoController::class, 'search'])->name('videos.search');
+Route::post('/views', [VideoController::class, 'incrementViews'])->name('incrementViews');
 Route::resource('/videos', VideoController::class);
+
+Route::post('/likes', [LikeController::class, 'likeVideo'])->name('likes');

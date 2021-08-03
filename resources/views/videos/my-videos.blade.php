@@ -29,13 +29,13 @@
                     @php
                       $seconds_add_zero = sprintf("%0d", $video->seconds);
                     @endphp
-                    <a href="#">
+                    <a href="{{route('videos.show', $video->id)}}">
                       <img src="{{Storage::url($video->image_path)}}" class="card-img-top" alt="...">
                       <time>{{$video->hours > 0 ? $hours_add_zero . ':': ''}}{{$minutes_add_zero}}:{{$seconds_add_zero}}</time>
                       <i class="fas fa-play fa-2x "></i>
                     </a>
                   </div>
-                  <a href="#">
+                  <a href="{{route('videos.show', $video->id)}}">
                     <div class="card-body p-0">
                       <p class="card-title">{{Str::limit($video->title, 60)}}</p>
                     </div>
