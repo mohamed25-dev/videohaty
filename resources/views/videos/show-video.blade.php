@@ -67,6 +67,12 @@
                     @endif
                     <span id="countDislikes">{{$countDislikes}}</span>
                   </a>
+
+                  @foreach ($video->views as $view)
+                      <span class="float-right">عددالمشاهدات
+                      <span class="views-number"> {{$view->views_number}} </span>
+                      </span>
+                  @endforeach
                 </div>
                 <div class="login-alert mt-3">
 
@@ -112,8 +118,7 @@
         let urlLike = '{{ route("likes") }}';
         let videoId = $('#videoId').val();
 
-        let isAuthorized = '{{ (Auth::user()) ? true : false }}'
-        console.log('isAuthorized', isAuthorized)
+        let isAuthorized = '{{ (Auth::user()) ? true : false }}';
         if (!isAuthorized) {
           console.log('not authorized')
           let html = 
@@ -153,5 +158,27 @@
         }
       });
     </script>
-    
+
+    <script>
+      $('#videoplayer').on('ended', function(event) {
+        event.preventDefault();
+        console.log('videoended')
+        let token = '{{ Session::token() }}';
+        let url = '{{ route("incrementViews") }}';
+        let videoId = $('#videoId').val();
+
+          $.ajax({
+            method: 'POST',
+            url: url,
+            data: {
+              '_token': token,
+              'videoId': videoId,
+            },
+            success: function(data) {
+
+              $('.views-number').html(data.viewsNumber);
+            }
+          });
+      });
+    </script>
 @endsection

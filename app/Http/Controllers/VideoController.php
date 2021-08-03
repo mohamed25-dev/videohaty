@@ -14,7 +14,15 @@ class VideoController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except('show');
+        $this->middleware('auth')->except(['show', 'incrementViews']);
+    }
+
+    public function incrementViews (Request $request) 
+    {
+        $views = View::where('video_id', $request->videoId)->first();
+        $views->increment('views_number');
+
+        return response()->json(['viewsNumber' => $views->views_number]);
     }
 
     public function index(Request $request)

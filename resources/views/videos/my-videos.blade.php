@@ -43,7 +43,10 @@
                   <div class="card-footer">
                     <small class="text-muted">
                       <span class="d-block">
-                        <i class="fas fa-eye"></i> 10 مشاهدة</span>
+                        @foreach ($video->views as $view)
+                          <i class="fas fa-eye"></i> {{$view->views_number}} مشاهدة</span>
+                        @endforeach
+                        
                         <i class="fas fa-clock"></i> <span>{{$video->created_at->diffForHumans()}}</span>
                         @auth
                             @if (auth()->id() == $video->user_id || auth()->user()->administration_level > 0)
