@@ -7,6 +7,7 @@ use App\Models\Video;
 use App\Models\View;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\ImageManagerStatic  as Image;
 
@@ -98,7 +99,13 @@ class VideoController extends Controller
             $userLike = auth()->user()->likes()->where('video_id', $video->id)->first();
         }
 
-        return view('videos.show-video', compact('video', 'countLikes', 'countDislikes', 'userLike'));
+        $comments = $video->comments->sortByDesc('create_at');
+
+        if (Auth::check()) {
+            auth()->user()->videoInHistory()->attach($video->id);
+        }
+
+        return view('videos.show-video', compact('video', 'countLikes', 'countDislikes', 'userLike', 'comments'));
     }
 
     public function edit(Video $video)

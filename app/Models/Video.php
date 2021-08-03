@@ -38,6 +38,6 @@ class Video extends Model
 
     public function users ()
     {
-        return $this->belongsToMany(User::class)->withTimestamps();
+        return $this->belongsToMany(User::class, 'video_user')->withPivot('id')->withTimestamps();
     }
 }
