@@ -18,6 +18,25 @@ class VideoController extends Controller
         $this->middleware('auth')->except(['show', 'incrementViews']);
     }
 
+    public function mostViewedVideos ()
+    {
+        $views = View::orderBy('views_number', 'DESC')
+        ->take(10)
+        ->get(['user_id', 'video_id', 'views_number']);
+
+        $videoNames = [];
+        $videoViews = [];
+
+        foreach ($views as $view) {
+            array_push($videoNames, $view->video->title);
+            array_push($videoViews, $view->views_number);
+        }
+
+        return view('admin.most-viewed-videos', compact('views'))
+        ->with('videoViews', json_encode($videoViews, JSON_NUMERIC_CHECK))
+        ->with('videoNames', json_encode($videoNames, JSON_NUMERIC_CHECK));
+    }
+
     public function incrementViews (Request $request) 
     {
         $views = View::where('video_id', $request->videoId)->first();

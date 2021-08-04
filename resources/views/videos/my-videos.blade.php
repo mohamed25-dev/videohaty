@@ -50,16 +50,18 @@
                         <i class="fas fa-clock"></i> <span>{{$video->created_at->diffForHumans()}}</span>
                         @auth
                             @if (auth()->id() == $video->user_id || auth()->user()->administration_level > 0)
-                              <form action="{{route('videos.destroy', $video->id)}}" method="POST" onsubmit="return confirm('تأكيد حذف الفيديو')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="float-left">
-                                  <i class="far fa-trash-alt text-danger fa-lg"></i>
-                                </button>
-                              </form>
-                              <a href="{{route('videos.edit', $video->id)}}" class="float-left">
-                                <i class="far fa-edit text-success fa-lg ml-2"></i>
-                              </a>
+                              @if (!auth()->user()->block)
+                                <form action="{{route('videos.destroy', $video->id)}}" method="POST" onsubmit="return confirm('تأكيد حذف الفيديو')">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="float-left">
+                                    <i class="far fa-trash-alt text-danger fa-lg"></i>
+                                  </button>
+                                </form>
+                                <a href="{{route('videos.edit', $video->id)}}" class="float-left">
+                                  <i class="far fa-edit text-success fa-lg ml-2"></i>
+                                </a>
+                              @endif
                             @endif
                         @endauth
                     </small>

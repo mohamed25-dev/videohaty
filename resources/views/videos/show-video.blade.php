@@ -42,7 +42,7 @@
                 </div>
 
                 <div class="interaction text-center mt-5">
-                  <a href="#" class="like ml-2">
+                  <a href="{{ route('likes') }}" class="like ml-2">
                     @if ($userLike)
                       @if ($userLike->like == 1)
                         <i class="far fa-thumbs-up fa-2x liked"></i>
@@ -55,7 +55,7 @@
                     <span id="countLikes">{{$countLikes}}</span>
                   </a>
                     |
-                  <a href="#" class="like mr-2">
+                  <a href="{{ route('likes') }}" class="like mr-2">
                     @if ($userLike)
                       @if ($userLike->like == 0)
                         <i class="fas fa-thumbs-down fa-2x liked"></i>
@@ -74,6 +74,7 @@
                       </span>
                   @endforeach
                 </div>
+
                 <div class="login-alert mt-3">
 
                 </div>
@@ -171,8 +172,9 @@
         let videoId = $('#videoId').val();
 
         let isAuthorized = '{{ (Auth::user()) ? true : false }}';
+        let blocked = "{{{ (Auth::user()) ? (Auth::user()->block) ? 1 : 0 : 2}}}";
+
         if (!isAuthorized) {
-          console.log('not authorized')
           let html = 
           '<div class="alert alert-danger">' +
             '<ul>' +
@@ -184,6 +186,17 @@
 
           $('.login-alert').html(html);
 
+        } else if (blocked == '1') {
+          let html = 
+          '<div class="alert alert-danger">' +
+            '<ul>' +
+              '<li class="login-alert">' +
+                "أنت ممنوع من التفاعل مع المحتوى, رجاء تواصل مع الإدارة لمعرفة السبب" +
+              '</li>' +
+            '</ul>' +
+          '</div>';
+
+          $('.login-alert').html(html);
         } else {
           let pressedButton = event.target.parentNode.previousElementSibling == null;
           $.ajax({
@@ -241,6 +254,7 @@
       let videoId = 0;
       let AuthUser = "{{{ (Auth::user()) ? 0 : 1 }}}";
       let blocked = "{{{ (Auth::user()) ? (Auth::user()->block) ? 1 : 0 : 2}}}";
+      
       if (AuthUser == '1') {
           event.preventDefault();
           let html='<div class="alert alert-danger">\

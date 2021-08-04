@@ -43,15 +43,16 @@
 
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li class="nav-item {{ request()->is('/') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{route('main')}}">
                             <i class="fas fa-home">
                                 الصفحة الرئيسية
                             </i>
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    @auth                        
+                    <li class="nav-item {{ request()->is('history') ? 'active' : '' }}" >
                         <a class="nav-link" href="{{route('history')}}">
                             <i class="fas fa-history">
                                 سجل المشاهدة
@@ -59,7 +60,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item {{ request()->is('videos/create*') ? 'active' : '' }} ">
                         <a class="nav-link" href="{{route('videos.create')}}">
                             <i class="fas fa-upload">
                                 رفع فيديو
@@ -67,7 +68,7 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
+                    <li class="nav-item {{ request()->is('videos') ? 'active' : '' }}">
                         <a class="nav-link" href="{{route('videos.index')}}">
                             <i class="fas fa-play-circle">
                                 قناتي
@@ -75,8 +76,10 @@
                         </a>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    @endauth
+
+                    <li class="nav-item {{ request()->is('channels') ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('channels.index') }}">
                             <i class="fas fa-film">
                                 القنوات
                             </i>
@@ -106,6 +109,7 @@
                                     alt="{{ Auth::user()->name }}">
                             </a>
 
+                            
                         <div class="dropdown-menu dropdown-menu-left px-2 text-right mt-2">
                             <div class="pt-4 pb-1 border-t border-gray-200">
                                 <div class="flex items-center px-4">
@@ -116,14 +120,25 @@
                                                 alt="{{ Auth::user()->name }}" />
                                         </div>
                                     @endif
-
+                                    
                                     <div class="ml-3">
                                         <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
                                         <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
                                     </div>
                                 </div>
+                                
+                               
 
                                 <div class="mt-3 space-y-1">
+                             
+                                    @can('update-videos')
+
+                                    <x-jet-responsive-nav-link href="{{ route('admin.index') }}"
+                                        :active="request()->routeIs('admin.index')">
+                                        {{ __('لوحة التحكم') }}
+                                    </x-jet-responsive-nav-link>
+                                    @endcan
+
                                     <!-- Account Management -->
                                     <x-jet-responsive-nav-link href="{{ route('profile.show') }}"
                                         :active="request()->routeIs('profile.show')">
