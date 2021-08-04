@@ -1157,6 +1157,10 @@ select {
 	margin-top: 0px;
 	margin-bottom: 0px;
 }
+.mx-1 {
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+}
 .ml-3 {
 	margin-left: 0.75rem;
 }
@@ -1258,6 +1262,9 @@ select {
 }
 .inline-flex {
 	display: inline-flex;
+}
+.table {
+	display: table;
 }
 .grid {
 	display: grid;

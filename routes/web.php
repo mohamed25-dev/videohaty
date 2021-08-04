@@ -6,6 +6,7 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\HistoryController;
 use App\Http\Controllers\LikeController;
 use App\Http\Controllers\MainController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\VideoController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,6 +45,9 @@ Route::delete('/coments/{comment}', [CommentController::class, 'destroy'])->name
 Route::get('/history', [HistoryController::class, 'index'])->name('history');
 Route::delete('/history/desroyAll', [HistoryController::class, 'destroyAll'])->name('history.distroyAll');
 Route::delete('/history/{id}', [HistoryController::class, 'destroy'])->name('history.destroy');
+
+Route::post('/notifications', [NotificationController::class, 'index'])->name('notifications');
+Route::get('/notifications/all', [NotificationController::class, 'allNotifications'])->name('all.notifications');
 
 Route::prefix('/admin')->middleware('can:update-videos')->group(function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');

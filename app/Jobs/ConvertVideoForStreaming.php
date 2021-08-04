@@ -2,7 +2,11 @@
 
 namespace App\Jobs;
 
+use App\Events\FailedNotification;
+use App\Events\RealNotification;
+use App\Models\Alert;
 use App\Models\Convertedvideo;
+use App\Models\Notification;
 use App\Models\Video;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
@@ -157,6 +161,18 @@ class ConvertVideoForStreaming implements ShouldQueue
 
     $converted_video->save();
 
+    Notification::creakte([
+      'user_id' => $this->video->user_id,
+      'notification' => $this->video->title
+    ]);
+
+    Alert::where('user_id', $this->video->user_id)->increment('alert');
+    $data = [
+      'video_title' => $this->video->title
+    ];
+
+    event(new RealNotification($data));
+
     $this->video->update([
       'Longitudinal' => $longitudinal,
       'processed' => true,
@@ -165,6 +181,24 @@ class ConvertVideoForStreaming implements ShouldQueue
       'seconds' => $seconds,
       'quality' => $quality,
     ]);
+  }
+
+  public function failed ()
+  {
+    Notification::create([
+      'user_id' => $this->video->user_id,
+      'notification' => $this->video->title,
+      'success' => false
+    ]);
+
+    $data = [
+      'video_title' => $this->video->title
+    ];
+    
+    Alert::where('user_id', $this->video->user_id)->increment('alert');
+
+    event(new FailedNotification($data));
+
   }
 
   private function getFileName($filename, $type)

@@ -20,21 +20,9 @@ class ViewSeeder extends Seeder
         $videos = Video::all();
         foreach ($videos as $video) {
             View::create([
-                'user_id' => 2,
+                'user_id' => $video->user_id,
                 'video_id' => $video->id,
-                'views_number' => 3,
-            ]);
-
-            View::create([
-                'user_id' => 4,
-                'video_id' =>  $video->id,
-                'views_number' => 7,
-            ]);
-
-            View::create([
-                'user_id' => 3,
-                'video_id' =>  $video->id,
-                'views_number' => 4,
+                'views_number' => 12,
             ]);
         }
     }
