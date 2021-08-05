@@ -16,9 +16,11 @@ Add this line to your .env file
 Currently pusher.com service is used for sending notifications, so you need to register there and then
 update the values to correspond with the configuration below:
 
-`PUSHER_APP_ID=
-PUSHER_APP_KEY= 
-PUSHER_APP_SECRET=`
+`PUSHER_APP_ID=`
+
+`PUSHER_APP_KEY=` 
+
+`PUSHER_APP_SECRET=`
 
 After that execute this command
 
