@@ -161,7 +161,7 @@ class ConvertVideoForStreaming implements ShouldQueue
 
     $converted_video->save();
 
-    Notification::creakte([
+    Notification::create([
       'user_id' => $this->video->user_id,
       'notification' => $this->video->title
     ]);
