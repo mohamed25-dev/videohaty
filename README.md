@@ -3,23 +3,32 @@
 
 ### Running the App =>
 
-`composer install
-npm install`
+`composer install`
+
+`npm install`
  
-add this line to your .env file
+Create a database and add it to your .env file
+
+Add this line to your .env file
 
 `FILESYSTEM_DRIVER=public`
 
 Currently pusher.com service is used for sending notifications, so you need to register there and then
 update the values to correspond with the configuration below:
 
-`PUSHER_APP_ID=
-PUSHER_APP_KEY= 
-PUSHER_APP_SECRET=`
+`PUSHER_APP_ID=`
+
+`PUSHER_APP_KEY=` 
+
+`PUSHER_APP_SECRET=`
 
 After that execute this command
 
 `php artisan storage:link`
+
+Generate a key using this command
+
+`php artisan key:generate`
 
 Run the db migration command with the seed option
 
