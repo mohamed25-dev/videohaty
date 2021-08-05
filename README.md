@@ -7,7 +7,9 @@
 
 `npm install`
  
-add this line to your .env file
+Create a database and add it to your .env file
+
+Add this line to your .env file
 
 `FILESYSTEM_DRIVER=public`
 
