@@ -1,41 +1,38 @@
- منصة استضافة فيديوهات
+## منصة مشاركة فيديوهات  
+## Video Sharing Platform
 
-خطوات تشغيل المشروع
+### Running the App =>
 
-    إنشاء الحزم اللازمة لتشغيل المشروع بتنفيذ :
+`composer install
+npm install`
+ 
+add this line to your .env file
 
-composer install
+`FILESYSTEM_DRIVER=public`
 
-npm install
+Currently pusher.com service is used for sending notifications, so you need to register there and then
+update the values to correspond with the configuration below:
 
-    إنشاء ملف باسم env. في المسار الأساسي للمشروع.
-    تعبئة الملف env. بالبيانات، و نستطيع نسخ هذه البيانات من الملف env.example. ولصقها بداخل الملف env. و التعديل عليها.
-    تغيير اسم قاعدة البيانات في الملف env. باسم مشابه تمامًا لقاعدة البيانات التي أنشأناها.
-    في ملف env. نحدد نوع التخزين ب 
+`PUSHER_APP_ID=
+PUSHER_APP_KEY= 
+PUSHER_APP_SECRET=`
 
-FILESYSTEM_DRIVER=public
+After that execute this command
 
+`php artisan storage:link`
 
-    يحتوي المشروع على نظام إشعارات، استخدمنا خدمة الاستضافة pusher لإنشاء إشعارات في الوقت الحالي، لذلك لكي تعمل الإشعارات لديك يجب إنشاء حساب في موقع pusher.com وربط ال api مع المشروع
+Run the db migration command with the seed option
 
-PUSHER_APP_ID=
+`php artisan migrate:fresh --seed`
 
-PUSHER_APP_KEY= `
+#### For seeding purposes you need to =>
+Add images to your public folder with these names (image1, image2, image3, image4)
+Also you need to add some videos to your public folder with these names (240p-video.mp4, 360p-video.mp4, 480p-video.mp4)
 
-PUSHER_APP_SECRET=
+Now run your app using the serve command
 
-    بعدها لإنشاء مفتاح خاص بالمشروع ننفذ الأمر:
+`php artisan serve`
 
-php artisan key:generate
+And start the queue using this command
 
-    بعدها لإنشاء وصلة مع المجلد storage الذي يحتوي على الصور ومقاطع الفيديو ننفذ الأمر:
-
-php artisan storage:link
-
-    الآن أصبح المشروع جاهز للتشغيل ننفذ الأمر:
-
-php artisan serve
-
-    لتشغيل المهمة job التي تعمل على معالجة مقاطع الفيديو في الخلفية ننفذ الأمر التالي في نافذة Console جديدة
-
-php artisan queue:work
+`php artisan queue:work`
