@@ -16,7 +16,7 @@ class VideoSeeder extends Seeder
     public function run()
     {
         $video1 = Video::create([
-            'user_id' => User::where('name', 'admin')->first()->id,
+            'user_id' => 1,
             'title' => 'دورة علوم الحاسوب - أكاديميتي ',
             'disk' => 'test',
             'video_path' => 'test',
@@ -29,7 +29,7 @@ class VideoSeeder extends Seeder
         ]);
 
         $video2 = Video::create([
-            'user_id' => User::where('name', 'admin')->first()->id,
+            'user_id' => 1,
             'title' => 'دورة git & github - أكاديميتي ',
             'disk' => 'test',
             'video_path' => 'test',
@@ -42,7 +42,7 @@ class VideoSeeder extends Seeder
         ]);
 
         $video3 = Video::create([
-            'user_id' => User::where('name', 'mohamed')->first()->id,
+            'user_id' => 2,
             'title' => 'كتاب العادات الذرية',
             'disk' => 'test',
             'video_path' => 'test',
@@ -55,7 +55,7 @@ class VideoSeeder extends Seeder
         ]);
 
         $video4 = Video::create([
-            'user_id' => User::where('name', 'mohamed')->first()->id,
+            'user_id' => 3,
             'title' => 'فضفضة عن الزواج وأشياء أخرى',
             'disk' => 'test',
             'video_path' => 'test',
@@ -68,7 +68,7 @@ class VideoSeeder extends Seeder
         ]);
 
         $video5 = Video::create([
-            'user_id' => User::where('name', 'mohamed2')->first()->id,
+            'user_id' => 2,
             'title' => 'دورة  قواعد البيانات - أكاديميتي ',
             'disk' => 'test',
             'video_path' => 'test',
@@ -81,7 +81,7 @@ class VideoSeeder extends Seeder
         ]);
 
         $video6 = Video::create([
-            'user_id' => User::where('name', 'mohamed1')->first()->id,
+            'user_id' => 3,
             'title' => 'يومي في حياة مهنس برمجيات @ غوغل',
             'disk' => 'test',
             'video_path' => 'test',
@@ -94,7 +94,7 @@ class VideoSeeder extends Seeder
         ]);
 
         $video7 = Video::create([
-            'user_id' => User::where('name', 'mohamed1')->first()->id,
+            'user_id' => 4,
             'title' => 'رحلتي إلى المالديف',
             'disk' => 'test',
             'video_path' => 'test',
