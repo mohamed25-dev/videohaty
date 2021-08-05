@@ -3,8 +3,9 @@
 
 ### Running the App =>
 
-`composer install
-npm install`
+`composer install`
+
+`npm install`
  
 add this line to your .env file
 
