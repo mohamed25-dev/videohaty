@@ -118,7 +118,7 @@ class VideoController extends Controller
             $userLike = auth()->user()->likes()->where('video_id', $video->id)->first();
         }
 
-        $comments = $video->comments->sortByDesc('create_at');
+        $comments = $video->comments->sortByDesc('created_at');
 
         if (Auth::check()) {
             auth()->user()->videoInHistory()->attach($video->id);
