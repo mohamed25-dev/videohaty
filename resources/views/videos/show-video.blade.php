@@ -307,7 +307,7 @@
                                               <img src="'+data.userImage+'" width="150px" class="rounded-full"/>\
                                           </div>\
                                           <div class="col-10">\
-                                              <form method="GET" action="'+destroy+'">\
+                                              <form method="POST" action="'+destroy+'">\
                                                   @csrf\
                                                   @method('DELETE')\
                                                   <button type="submit" class="float-left"><i class="far fa-trash-alt text-danger fa-lg"></i></button>\
