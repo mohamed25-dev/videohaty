@@ -15,7 +15,7 @@ class VideoSeeder extends Seeder
      */
     public function run()
     {
-        $video1 = Video::create([
+        Video::create([
             'user_id' => 1,
             'title' => 'دورة علوم الحاسوب - أكاديميتي ',
             'disk' => 'test',
@@ -28,7 +28,7 @@ class VideoSeeder extends Seeder
             'processed'=>'1',
         ]);
 
-        $video2 = Video::create([
+        Video::create([
             'user_id' => 1,
             'title' => 'دورة git & github - أكاديميتي ',
             'disk' => 'test',
@@ -41,7 +41,7 @@ class VideoSeeder extends Seeder
             'processed'=>'1',
         ]);
 
-        $video3 = Video::create([
+        Video::create([
             'user_id' => 2,
             'title' => 'كتاب العادات الذرية',
             'disk' => 'test',
@@ -54,7 +54,7 @@ class VideoSeeder extends Seeder
             'processed'=>'1',
         ]);
 
-        $video4 = Video::create([
+        Video::create([
             'user_id' => 3,
             'title' => 'فضفضة عن الزواج وأشياء أخرى',
             'disk' => 'test',
@@ -67,7 +67,7 @@ class VideoSeeder extends Seeder
             'processed'=>'1',
         ]);
 
-        $video5 = Video::create([
+        Video::create([
             'user_id' => 2,
             'title' => 'دورة  قواعد البيانات - أكاديميتي ',
             'disk' => 'test',
@@ -80,12 +80,12 @@ class VideoSeeder extends Seeder
             'processed'=>'1',
         ]);
 
-        $video6 = Video::create([
+        Video::create([
             'user_id' => 3,
-            'title' => 'يومي في حياة مهنس برمجيات @ غوغل',
+            'title' => 'يومي في حياة مهندس برمجيات',
             'disk' => 'test',
             'video_path' => 'test',
-            'image_path' => 'test/computer-science/computer-science.png',
+            'image_path' => 'image6.png',
             'hours' => '0',
             'minutes'=>'8',
             'seconds'=>'4',
@@ -93,12 +93,12 @@ class VideoSeeder extends Seeder
             'processed'=>'1',
         ]);
 
-        $video7 = Video::create([
+        Video::create([
             'user_id' => 4,
             'title' => 'رحلتي إلى المالديف',
             'disk' => 'test',
             'video_path' => 'test',
-            'image_path' => 'test/computer-science/computer-science.png',
+            'image_path' => 'image7.png',
             'hours' => '0',
             'minutes'=>'20',
             'seconds'=>'44',

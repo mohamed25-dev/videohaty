@@ -47,10 +47,10 @@
                       @if ($userLike->like == 1)
                         <i class="far fa-thumbs-up fa-2x liked"></i>
                       @else 
-                        <i class="far fa-thumbs-up fa-2x"></i>
+                        <i class="fas fa-thumbs-up fa-2x"></i>
                       @endif
                     @else 
-                      <i class="far fa-thumbs-up fa-2x"></i>
+                      <i class="fa fa-thumbs-up fa-2x"></i>
                     @endif
                     <span id="countLikes">{{$countLikes}}</span>
                   </a>
