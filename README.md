@@ -13,6 +13,13 @@ Add this line to your .env file
 
 `FILESYSTEM_DRIVER=public`
 
+
+Also the queue connection should be changed to database this way
+
+`QUEUE_CONNECTION=database`
+
+`FILESYSTEM_DRIVER=public`
+
 Currently pusher.com service is used for sending notifications, so you need to register there and then
 update the values to correspond with the configuration below:
 
